@@ -61,6 +61,28 @@ def second_lowest_grade(n, name, score):
     secondLowest = gradeSet[1]
     [print(name)for name,score in grades if score == secondLowest]
 
+# actual code used in Hackerrank IDE that works with their input
+#if __name__ == '__main__':
+#    grades = []
+#    for _ in range(0, int(input())):
+        # name = input()
+        # score = float(input())
+#        grades.append([input(), float(input())])
+
+#    grades = list(zip(name, score))
+#    grades.sort(key=lambda x: (x[1], x[0]))
+#    lowestScore = grades[0][1]
+
+#    for i in range(1, 4):
+#      if grades[i][1] > lowestScore:
+#            secondLowest = grades[i][1]
+#            break
+
+#    for i in range(1, 4):
+#        if grades[i][1] == secondLowest:
+#            print(grades[i][0])
+
+
 #===================
 name = ['Jane', 'Sam', 'Tom', 'Sally', 'Sara']
 score = [10, 7, 5, 7, 8]
@@ -187,3 +209,70 @@ def staircase(n):
         for k in range(i + 1):
             print("#", end="")
         print()
+
+#=====================
+#staircase(5)
+
+# --------------------------------------------------------------------
+def time_conversion(timestring):
+
+    # if PM and not noon just add 12 hours
+    if timestring[-2:] == 'PM' and timestring[:2] != "12":
+        hour = int(timestring[0:2])
+        hour = hour + 12
+        result = str(hour) + timestring[2:8]
+        return result
+
+    # noon just remove PM
+    if timestring[-2:] == 'PM':
+        return timestring[:-2]
+
+    # check for midnight to 12:59, change hour to 00
+    if timestring[-2:] == "AM" and timestring[:2] == "12":
+        return "00" + timestring[2:8]
+
+    # if AM and not midnight just remove AM
+    if timestring[-2:] == "AM":
+        return timestring[:-2]
+
+#======================
+#result = time_conversion("01:00:00PM")
+#print(result)
+
+# --------------------------------------------------------------------
+#FizzBuzz problem:  For numbers 1 to n print number unless divisible by 3 then print 'Fizz',
+#                   if divisible by 5 print 'buzz', if divisible by both 3 and 5 print 'FizzBuzz'
+
+def FizzBuzz(n):
+
+    for i in range(1,n+1):
+        messageOut = ""
+
+        if (i % 3) == 0:
+            messageOut = "Fizz"
+        if (i % 5) == 0:
+            messageOut = messageOut + "Buzz"
+        if messageOut == "":
+            messageOut = str(i)
+        print(messageOut)
+
+#====================
+#FizzBuzz(100)
+
+# --------------------------------------------------------------------
+#  Finding the Perentage - using dictionary data type
+
+if __name__ == '__main__':
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    query_name = input()
+
+# write code here
+if query_name in student_marks:
+    scores = student_marks.get(query_name,[])
+    ave = (scores[0] + scores[1] + scores[2])/3
+    print('%.2f' % ave)

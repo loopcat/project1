@@ -1,4 +1,5 @@
 import math
+import cmath
 import operator
 import re
 
@@ -503,3 +504,263 @@ def average(array,n):
     return sumHeights / numItems
 
 #average([161, 182, 161, 154, 176, 170, 167, 171, 170,174],10)
+
+# --------------------------------------------------------------------
+#tot = 0
+#list1 = [1,3,5,7, 9]
+#setA = {1,3,7}
+
+#for n in list1:
+ #   if n in setA:
+#        tot += 1
+
+#print([n for n in list1 if n in setA])
+#print('Total=', tot)
+
+# --------------------------------------------------------------------
+# No Idea! : for each number in the list if it exists in seta add 1 point, if in setb sub 1 point
+# 4 lines of input
+# n m
+# 1 3 5 6     list
+# 1 4         seta
+# 3 5         setb
+
+def no_idea():
+    # n - list len, m set len
+    list1= []
+    seta = ()
+    setb =()
+    total = 0
+
+    n, m = [int(x) for x in input().split()]
+    list1 = [int(x) for x in input().split()]
+    seta = {int(x) for x in input().split()}
+    setb = {int(x) for x in input().split()}
+
+    for n in list1:
+        if n in seta:
+            total += 1
+        if n in setb:
+            total -= 1
+
+    print(total)
+
+# a cool solution to the same problem
+#n, m = raw_input().split()
+
+#sc_ar = raw_input().split()
+
+#A = set(raw_input().split())
+#B = set(raw_input().split())
+#print sum([(i in A) - (i in B) for i in sc_ar])
+
+# --------------------------------------------------------------------
+# Symmetric Difference - (sets)
+def symmetric_diff():
+    m = input()
+    set1 = set(int(x) for x in input().split())
+    n = input()
+    set2 = set(int(x) for x in input().split())
+
+    list1 = list(set1.difference(set2))
+    list2 = list(set2.difference(set1))
+    for x in list2:
+        list1.append(x)
+    list1.sort()
+    for x in list1:
+        print(x)
+# should have used set sort and not needed lists.  union of sets and sort and print using \n for line feed
+
+# --------------------------------------------------------------------
+# set: add
+country = set()
+n = int(input())
+
+for i in range(n):
+    country.add(str(input()))
+print(len(country))
+
+# --------------------------------------------------------------------
+# Set: discard, pop and remove
+n = int(input())
+s = set(map(int, input().split()))
+m = int(input())
+
+for i in range(m):
+    cmd = str(input()).split()
+
+    if len(cmd) > 1:
+        x = int(cmd[1])
+
+    if cmd[0] == 'pop':
+        s.pop()
+    elif cmd[0] == 'discard':
+        s.discard(x)
+    else:
+        s.remove(x)
+
+print(sum(s))
+
+# better solution
+choice=input().split()
+if choice[0]=="pop" :
+    s.pop()
+elif choice[0]=="remove" :
+    s.remove(int(choice[1]))
+elif choice[0]=="discard" :
+    s.discard(int(choice[1]))
+
+# --------------------------------------------------------------------
+# union (sets) - print how many students subscribe to English and French newspapers
+# Input: number of students who subscribe to English paper, the set of student numbers
+#        number of students who subscribe to French paper, the set of student numbers
+
+e = int(input())
+es = set(map(int, input().split()))
+f = int(input())
+fs = set(map(int, input().split()))
+
+all = es.union(fs)
+print(len(all))
+
+# intersection (sets)
+print(len(es.intersection(fs)))
+
+# difference (sets)
+print(len(es.difference(fs)))
+
+# symmetric_difference (sets)
+print(len(es.symmetric_difference(fs)))
+
+# --------------------------------------------------------------------
+# use update with set functions
+a = int(input())
+setA = set(map(int, input().split()))
+n = int(input())   # how many operations
+
+# loop through operations
+for i in range(n):
+    operation = str(input()).split()
+    set1 = set(map(int, input().split()))
+
+    if operation[0] == 'intersection_update':
+        setA.intersection_update(set1)
+    elif operation[0] == 'update':
+        setA.update(set1)
+    elif operation[0] == 'difference_update':
+        setA.difference_update(set1)
+    else:
+        setA.symmetric_difference_update(set1)
+
+print(sum(setA))
+
+# better pythonic solution
+
+#(_, A) = (
+#    raw_input(),
+#    set(map(int, raw_input().split()))
+#)
+
+#for _ in xrange(input()):
+#    (command, newSet) = (
+#        raw_input().split()[0],
+#        set(map(int, raw_input().split()))
+#   )
+
+    # Cool trick. Since our commands are method names, just
+    # execute the method on A with our new set as its argument.
+#    getattr(A, command)(newSet)
+
+# --------------------------------------------------------------------
+# Captain's Rooms (sets)
+# ran too slow, apparently because of count function
+k = int(input())
+rooms = [int(x) for x in input().split()]
+roomSet = set([x for x in rooms if rooms.count(x) == 1])
+
+for n in roomSet:
+    print(n)
+
+# faster solution (the .pop() allows you to print just the number otherwise you get{x}
+k = int(input())
+rooms = [int(x) for x in input().split()]
+allRooms = set()      # unique list of all rooms
+familyRooms = set()   # rooms that appear more than once
+
+for x in rooms:
+    if x not in allRooms:
+        allRooms.add(x)
+    else:
+        familyRooms.add(x)
+
+print(allRooms.difference(familyRooms).pop())
+
+# --------------------------------------------------------------------
+# Check Subset (sets) - is a a subset of b
+n = int(input())
+
+for i in range(n):
+    alen = int(input())
+    aset = set(map(int, input().split()))
+    blen = int(input())
+    bset = set(map(int, input().split()))
+
+    if aset <= bset:
+        print('True')
+    else:
+        print('False')
+
+# --------------------------------------------------------------------
+# Check Strict Superset = is set A a strict superset of other sets
+setA = set(map(int, input().split()))
+n = int(input())
+
+result = 'True'
+for i in range(n):
+    setB = set(map(int, input().split()))
+    if not setA.issuperset(setB):
+        result = 'False'
+
+print(result)
+
+# --------------------------------------------------------------------
+# Polar Coordinates - print r and angle on seperate lines (math)
+
+x = complex(input())
+#print(cmath.polar(complex(input())))
+print(abs(x))
+print(cmath.phase(x))
+
+# --------------------------------------------------------------------
+# Find Angle MBC (math) - from a right triangle, 90 angle intersected from the midpoint of the hypotenuse, find new angle
+# print degree symbol right next to angle
+
+ab = int(input())
+bc = int(input())
+
+ac = math.sqrt(ab**2 + bc**2)
+mc = ac/2
+mb=mc
+angle = round(math.degrees(math.acos((mb**2 + bc**2 - mc**2)/(2*mb*bc))))
+print(str(angle) + '\u00b0')
+
+# --------------------------------------------------------------------
+# Mod Divmod (math)
+
+a = int(input())
+b = int(input())
+
+print(a//b)   # prints quotient
+print(a % b)  # prints remainder
+print(divmod(a,b))   # prints tuple of quotient and remiander (quotient, remainder)
+
+# --------------------------------------------------------------------
+# Power (math) -pow(a,b) and pow(a,b,m)
+a = int(input())
+b = int(input())
+m = int(input())
+
+
+print(pow(a,b))
+b = abs(b)
+print(pow(a,b,m))

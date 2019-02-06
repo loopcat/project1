@@ -13,6 +13,9 @@ floatNumber = 1.0
 # can asign multiple variables on the same line
 intX, intY = 1, 2
 
+#=================================================================================================
+# STRINGS
+#=================================================================================================
 # strings can be single or double quotes (use double quotes to include an apostrophe in the string
 # position starts with 0
 
@@ -26,9 +29,9 @@ print(strName + " cat")
 # to cat a string and a number use str to convert integer to string
 print(strName + str(6))
 
-# split and join
+# split and join (split gives a list of items)
 testString = "This is a test"
-testString = testString.split(" ")  # split on space: "this", "is", "a", "test"
+testString = testString.split(" ")  # split on space: ["this", "is", "a", "test"]
 testString = "-".join(testString)   # join with hyphen:  "this-is-a-test"
 
 # string functions use .  You can use repeated functions with more .   strName.capitalize().isupper()
@@ -81,15 +84,17 @@ print("bin: {0:b}, oct: {0:o}, hex: {0:x}".format(12))
 # boolean - True and False must start with capital letter
 boolDone = True
 
-#-------------------------------------------------------------------------------------------------
+# ***************         *********************     *****************
 # linefeed is automatic.  If you add a linefeed you will get 2 lines
 
 # print without linefeed
 print("Hello", end="")   # no line feed
 print()  # makes 1 linefeed
 
-#-------------------------------------------------------------------------------------------------
+
+#=================================================================================================
 # type conversions
+#=================================================================================================
 
 # int()   converts string, floating point to integer
 # float() converts string, integer to float
@@ -117,13 +122,30 @@ if list1 == list2:
     print("True")
 else:
     print("False")
-#-------------------------------------------------------------------------------------------------
-# standard input
+
+#=================================================================================================
+# STANDARD INPUT
+#=================================================================================================
+
 name = input("Enter your name: ")
 age = input("Enter your age: ")
 print("Hello " + name + "you are " + age + " years old")
 
-#-------------------------------------------------------------------------------------------------
+# read two numbers seperated by a space in to two variables
+# 1 3
+n, m = [int(x) for x in input().split()]    # n=1 and m=3
+
+# read a list of numbers separated by a space in to a list
+# 1 3 5
+list1 = [int(x) for x in input().split()]    # list1 = [1,3,5]
+
+# same as above but create a set
+seta = {int(x) for x in input().split()}     # seta = {1,3,5}
+
+#=================================================================================================
+# LISTS
+#=================================================================================================
+
 # lists - (a container to hold one or multiple types of items.  items are objects)
 # index starts at 0   negatives start from the back of the list -1 is the last item
 
@@ -139,7 +161,6 @@ print(numberList[2:4]) # prints 3,4 the 4th one is not included
 #types can be mixed
 myList = [1, "apple", True]
 
-#-------------------------------------------------------------------------------------------------
 # list functions (extend, append, insert, remove, pop, index, count, sort, reverse, copy
 oddNums = [1,3,5,7,9]
 evenNums = [2,4,6,8]
@@ -179,8 +200,9 @@ n=2
 
 print([[i,j,k] for i in range(x+1) for j in range(y+1) for k in range(z+1) if i+j+k != n])
 
-#-------------------------------------------------------------------------------------------------
+#=================================================================================================
 # 2D lists  (lists of lists)
+#=================================================================================================
 
 # 4 rows 3 columns
 numberGrid = [
@@ -192,11 +214,11 @@ numberGrid = [
 # access by [row][col]
 print(numberGrid[0][0])
 
-#-------------------------------------------------------------------------------------------------
-# sets - do not allow duplicate items.  sets can contain mixed types
+#=================================================================================================
+# SETS - do not allow duplicate items.  sets can contain mixed types
+#=================================================================================================
 
-
-a = set()
+a = set()   # must use () to create an empty set
 a.add(1)
 a.add(2)
 a.add(2)# nothing will happen no duplicates added
@@ -204,6 +226,26 @@ print(a)  # prints {2, 1}
 
 for x in a:
     print(x)
+# create a set reading from input (integers separated by a space on a single line 1 3 4
+seta = {int(x) for x in input().split()}     # seta = {1,3,4}
+
+# update - adds items to set
+a.update([1, 2, 3, 4]) # update() only works for iterable objects
+
+# delete an item - remove will raise an error if item does not exist, pop - will raise an error if set empty
+a.discard(10)
+a.remove(1)
+a.pop()
+
+# union, difference and intersectection
+a = {2, 4, 5, 9}
+b = {2, 4, 11, 12}
+a.union(b) # Values which exist in a or b
+a.intersection(b) # Values which exist in a and b
+a.difference(b) # Values which exist in a but not in b
+a.union(b) == b.union(a)    # returns True
+a.intersection(b) == b.intersection(a)     # returns True
+a.difference(b) == b.difference(a)   # returns False
 
 # use a set to remove duplicates from a list
 list1 = [1,1,2,3,4]
@@ -211,8 +253,17 @@ new_set = set()
 for x in list1:
     new_set.add(x)
 
+# comparing subsets
+#{1, 2} < {1, 2, 3}  # True
+#{1, 2} < {1, 3}  # False
+#{1, 2} < {1, 2}  # False -- not a *strict* subset
+#{1, 2} <= {1, 2}  # True -- is a subset
+
 # when adding to a list the order is not preserved, append does preserve the order
-#-------------------------------------------------------------------------------------------------
+
+#=================================================================================================
+# TUPLES
+#=================================================================================================
 # tuples -  constant (immutable)  format name = (x,y, ...) indexe start at 0
 
 coordinates = (4,5)
@@ -224,35 +275,9 @@ multCoordinates = [(4,5), (2,3), (5,6)]    # list of tuples still immutable
 numbers = tuple(map(int, input().split(" ")))
 print(hash(numbers))
 
-#-------------------------------------------------------------------------------------------------
-# functions - ':' starts the function and code MUST be indented.
-
-def printHi (person) :
-    print("Hi" + person)
-
-printHi("Jenny")
-
-def cube(num) :
-    return num ^ 3
-
-print(cube(3))
-result = cube(3)
-#--------------------------------------------------------------------------------------------------
-# if else - colon must follow condition with no spaces
-
-x = 1
-y = 10
-
-if x > y and x > 1:
-    print(x)
-elif x == 0:
-    print("x is 0")
-elif y == 0:
-    print("y is 0")
-else:
-    print(y)
-
-#--------------------------------------------------------------------------------------------------
+#=================================================================================================
+# DICTIONARIES
+#=================================================================================================
 # dictionaries - allows information to be stored in key-value pairs.  retrieve values by key
 #  name = {key: value, key: value, ...}
 monthConversions = {
@@ -284,16 +309,56 @@ if 'Jane' in grades:
 else:
     print('Not Found')
 
-#-------------------------------------------------------------------------------------------------
-# while loop
+#=================================================================================================
+# FUNCTIONS
+#=================================================================================================
+
+# functions - ':' starts the function and code MUST be indented.
+
+def printHi (person) :
+    print("Hi" + person)
+
+printHi("Jenny")
+
+def cube(num) :
+    return num ^ 3
+
+print(cube(3))
+result = cube(3)
+
+#=================================================================================================
+# MATH FUNCTIONS
+#=================================================================================================
+
+#=================================================================================================
+# IF ELSE
+#=================================================================================================
+# if else - colon must follow condition with no spaces
+
+x = 1
+y = 10
+
+if x > y and x > 1:
+    print(x)
+elif x == 0:
+    print("x is 0")
+elif y == 0:
+    print("y is 0")
+else:
+    print(y)
+
+#=================================================================================================
+# WHILE LOOP
+#=================================================================================================
 
 i = 10
 while i < 10:
     print(i)
     i += 1
 
-#-------------------------------------------------------------------------------------------------
-# for loop
+#=================================================================================================
+# FOR LOOP
+#=================================================================================================
 
 # will print 0 to 9
 for i in range(10):
@@ -324,8 +389,9 @@ for row in numberGrid:
     for col in row:
         print(col)
 
-#-------------------------------------------------------------------------------------------------
-# try / except
+#=================================================================================================
+# TRY / EXCEPT
+#=================================================================================================
 
 try:
     number = int(input("enter a number"))
@@ -340,9 +406,9 @@ try:
 except ValueError:
     print("invalid number")
 
-# -------------------------------------------------------------------------------------------------
-# reading files
-
+#=================================================================================================
+# READING FILES
+#=================================================================================================
 # open file - can use filename or path.  open (filename, mode).
 # mode "r" read, "w" write, "a" append,"r+" read & write  ( note:  use rU for universal read,it will always return \n on each line
 
@@ -374,8 +440,9 @@ print(employeeFile.readlines()[1])  # access line 1
 for empployee in employeeFile.readlines():
     print()
 
-# -------------------------------------------------------------------------------------------------
-# writing files
+#=================================================================================================
+# WRITING FILES
+#=================================================================================================
 
 employeeFile = open("filename.txt", "a")  # append
 employeeFile.write("\nToby - HR")
@@ -383,22 +450,26 @@ employeeFile.Close()
 
 # if file is open for write "w", adding a line will over write the entire file. use write to create a new file
 
-# -------------------------------------------------------------------------------------------------
+#=================================================================================================
+# MODULES
+#=================================================================================================
 # modules - a file to be included in to your current file (see Python Module Index)
 # see External Libraries/Lib folder
 
 import LinkedList
 # syntax to use:    program1.<name of function>
 
-# -------------------------------------------------------------------------------------------------
+#=================================================================================================
+# PIP
+#=================================================================================================
 # pip - install external 3rd party modules
 # bring up the DOS command window - pip should be there.  type: pip -- version    to check
 # pip install moduleName
 # goes to External Libraries/Lib/site packages folder
 
-
-# -------------------------------------------------------------------------------------------------
-# classes and objects
+#=================================================================================================
+# CLASSES AND OBJECTS
+#=================================================================================================
 
 class student:
     # initialize function
